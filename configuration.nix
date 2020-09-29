@@ -131,12 +131,15 @@
   #   enableSSHSupport = true;
   #   pinentryFlavor = "gnome3";
   # };
+  programs.ssh.startAgent = true;
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.tailscale.enable = true;
+  virtualisation.docker.enable = true
+
  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
