@@ -138,7 +138,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.tailscale.enable = true;
-  virtualisation.docker.enable = true
+  virtualisation.docker.enable = true;
 
  
   # Open ports in the firewall.
