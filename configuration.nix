@@ -15,8 +15,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.cleanTmpDir = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # General Housekeeping
+
+  services.journald.extraConfig = "SystemMaxUse=500M";
+
+  # Collect nix store garbage and optimise daily.
+  nix.gc.automatic = true;
+  nix.optimise.automatic = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -26,6 +31,7 @@
   networking.interfaces.wlo1.useDHCP = true;
 
   networking.hostName = "nixP330t";
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   # Configure network proxy if necessary
@@ -58,21 +64,15 @@
       alacritty
       ark
       autorandr
-      cmake
-      dhall
       direnv
       docker
       docker-compose
       dpkg
       file
       firefox
-      gcc
-      gdb
       git
       gitAndTools.hub
       gnome-themes-standard
-      gnumake
-      gnutar
       google-chrome
       gzip
       inetutils
