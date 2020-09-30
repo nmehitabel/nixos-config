@@ -1,23 +1,52 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-# eventually all below imports will have been expressed elsewhere aand pulled in via import
-# 'host' should be symlinked to relevant directory in 'hosts' subdirectory
-{
-  imports = [
-    ./common.nix
-    ./host/configuration.nix
-    ./host/hardware-configuration.nix
-  ]
-}
 
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config = {
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "20.03"; # Did you read the comment?
+
+    # general / housekeeping
+    
+    # Only keep the last 500MiB of systemd journal.
+    services.journald.extraConfig = "SystemMaxUse=500M";
+
+    # Collect nix store garbage and optimise daily.
+    nix.gc.automatic = true;
+    nix.optimise.automatic = true;
+
+    # Clear out /tmp after a fortnight and give all normal users a ~/tmp
+    # cleaned out weekly.
+    systemd.tmpfiles.rules = [ "d /tmp 1777 root root 14d" ] ++
+      (let mkTmpDir = n: u: "d ${u.home}/tmp 0700 ${n} ${u.group} 7d";
+       in mapAttrsToList mkTmpDir (filterAttrs (n: u: u.isNormalUser) config.users.extraUsers));
+
+    # Enable passwd and co.
+    users.mutableUsers = true;
+    
+    # Locale
+
+      i18n.defaultLocale = "en_GB.UTF-8";
+      
+      console = {
+        font = "Lat2-Terminus16";
+        keyMap = "uk";
+      };
+
+      
+
+  };
+
+}
+{
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -204,13 +233,6 @@
  
   users.groups."gcasey" = { gid = 1000; name = "gcasey"; members = [ "gcasey" ]; };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.03"; # Did you read the comment?
 
 }
 
