@@ -21,6 +21,7 @@
 
   # Collect nix store garbage and optimise daily.
   nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 7d";
   nix.optimise.automatic = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -61,6 +62,25 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+      (neovim.override {
+        viAlias = true;
+        vimAlias = true;
+        configure = {
+          customRC = ''
+            set shiftwidth=2
+            set softtabstop=2
+            set expandtab
+            set background=dark
+          '';
+          packages.myVimPackage = with pkgs.vimPlugins; {
+            start = [
+              vim-startify  airline             sensible
+              polyglot      ale                 fugitive
+            ];
+            opt = [ ];
+          };
+        };
+      })
       alacritty
       ark
       autorandr
@@ -70,6 +90,7 @@
       dpkg
       file
       firefox
+      fzf
       git
       gitAndTools.hub
       gnome-themes-standard
@@ -85,17 +106,19 @@
       kdiff3
       killall
       ksystemlog
+      libnotify
       libpng
       libxml2
       lsof
       ncat
       neovim
       nix-direnv
-      oh-my-zsh
       okular
       openssl
       parted
       plasma-workspace
+      ranger
+      ripgrep
       qdirstat
       slack
       spectacle
@@ -114,6 +137,15 @@
       zip
       zsh
     ];
+
+  # nix options for derivations to persist garbage collection
+  nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
+  '';
+  environment.pathsToLink = [
+    "/share/nix-direnv"
+  ];
 
   fonts.fonts = with pkgs; [
     fira-code
