@@ -85,16 +85,23 @@
       alacritty
       ark
       autorandr
+      binutils
+      cargo
+      dbus
       direnv
       docker
       docker-compose
       dpkg
+      exa
+      fd
       file
       firefox
       fzf
       git
       gitAndTools.hub
       gnome-themes-standard
+      gnupg
+      gnumake
       google-chrome
       gzip
       inetutils
@@ -117,10 +124,14 @@
       okular
       openssl
       parted
+      perl
       plasma-workspace
+      python37
+      qdirstat
       ranger
       ripgrep
-      qdirstat
+      rustc
+      shutter
       slack
       spectacle
       sudo
@@ -135,6 +146,7 @@
       xclip
       xsel
       xsv
+      ytop
       zip
       zsh
     ];
