@@ -135,6 +135,7 @@
       slack
       spectacle
       sudo
+      tailscale
       terminator
       tree
       unzip
