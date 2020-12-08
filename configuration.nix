@@ -109,7 +109,6 @@
       iptables
       iotop
       jdk11
-      unstable.jetbrains.idea-community
       jq
       keepassxc
       kdiff3
@@ -136,7 +135,6 @@
       slack
       spectacle
       sudo
-      tailscale
       terminator
       tree
       unzip
@@ -144,6 +142,8 @@
       wget
       vim
       visualvm
+      unstable.jetbrains.idea-community
+      unstable.tailscale
       unstable.vscode
       xclip
       xsel
