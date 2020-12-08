@@ -109,6 +109,7 @@
       iptables
       iotop
       jdk11
+      unstable.jetbrains.idea-community
       jq
       keepassxc
       kdiff3
