@@ -143,7 +143,7 @@
       vim
       visualvm
       unstable.jetbrains.idea-community
-      unstable.tailscale
+      tailscale
       unstable.vscode
       xclip
       xsel
