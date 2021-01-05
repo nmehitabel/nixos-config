@@ -82,7 +82,6 @@
           };
         };
       })
-      alacritty
       ark
       autorandr
       binutils
@@ -142,6 +141,7 @@
       wget
       vim
       visualvm
+      unstable.alacritty
       unstable.jetbrains.idea-community
       tailscale
       unstable.vscode
