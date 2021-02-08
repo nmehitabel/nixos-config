@@ -85,7 +85,6 @@
       ark
       autorandr
       binutils
-      cargo
       dbus
       direnv
       docker
@@ -120,6 +119,7 @@
       ncat
       neovim
       nix-direnv
+      niv
       okular
       openssl
       parted
@@ -129,7 +129,6 @@
       qdirstat
       ranger
       ripgrep
-      rustc
       shutter
       slack
       spectacle
