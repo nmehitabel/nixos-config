@@ -20,9 +20,27 @@
   services.journald.extraConfig = "SystemMaxUse=500M";
 
   # Collect nix store garbage and optimise daily.
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 7d";
-  nix.optimise.automatic = true;
+  #nix.gc.automatic = true;
+  #nix.gc.options = "--delete-older-than 7d";
+  #nix.optimise.automatic = true;
+  # nix options for derivations to persist garbage collection
+  #nix.extraOptions = ''
+  #  keep-outputs = true
+  #  keep-derivations = true
+  #  experimental-features = nix-command flakes
+  #'';
+
+  nix = {
+    package = pkgs.nixUnstable; # or versioned attributes like nix_2_4
+    gc.automatic = true;
+    gc.options = "--delete-older-than 7d";
+    optimise.automatic = true;
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+      experimental-features = nix-command flakes
+    '';
+   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -142,21 +160,15 @@
       visualvm
       unstable.alacritty
       unstable.jetbrains.idea-community
-      tailscale
       unstable.vscode
       xclip
       xsel
       xsv
-      ytop
       zip
+      zlib
       zsh
     ];
 
-  # nix options for derivations to persist garbage collection
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
   environment.pathsToLink = [
     "/share/nix-direnv"
   ];
@@ -183,7 +195,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.tailscale.enable = true;
   virtualisation.docker.enable = true;
 
  
